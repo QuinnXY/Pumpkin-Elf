@@ -1,0 +1,66 @@
+input.buttonA.onEvent(ButtonEvent.Click, function () {
+    while (true) {
+        light.showRing(
+            `orange black orange black orange orange black orange black orange`
+        )
+        pause(100)
+        light.showRing(
+            `black orange black orange black black orange black orange black`
+        )
+    }
+})
+input.onTemperatureConditionChanged(TemperatureCondition.Hot, 95, TemperatureUnit.Fahrenheit, function () {
+    if (true) {
+        light.stopAllAnimations()
+    }
+})
+input.onLightConditionChanged(LightCondition.Dark, function () {
+    for (let i = 0; i < 10; i++) {
+        music.playMelody("E B C5 A B G A F ", 120)
+        light.showRing(
+            `blue black blue black blue blue black blue black blue`
+        )
+        pause(100)
+        light.showRing(
+            `black orange black orange black black orange black orange black`
+        )
+    }
+})
+input.buttonB.onEvent(ButtonEvent.Click, function () {
+    for (let i = 0; i < 10; i++) {
+        music.playMelody("E B C5 A B G A F ", 120)
+    }
+})
+input.buttonB.onEvent(ButtonEvent.LongClick, function () {
+    music.stopAllSounds()
+    music.setVolume(0)
+})
+input.onGesture(Gesture.Shake, function () {
+    for (let i = 0; i < 10; i++) {
+        music.setVolume(107)
+        music.playMelody("E B C5 A B G A F ", 120)
+        light.showRing(
+            `purple black purple black purple purple black purple black purple`
+        )
+        pause(100)
+        light.showRing(
+            `black orange black orange black black orange black orange black`
+        )
+    }
+})
+let rightLight: light.NeoPixelStrip = null
+let leftLight: light.NeoPixelStrip = null
+light.showAnimation(light.rainbowAnimation, 1000)
+music.powerUp.play()
+forever(function () {
+    leftLight = light.createStrip(pins.A1, 1)
+    leftLight.setAll(0xff8000)
+    pause(1000)
+    leftLight.setAll(0x000000)
+})
+forever(function () {
+    rightLight = light.createStrip(pins.A5, 1)
+    rightLight.setAll(0xff8000)
+    pause(1000)
+    rightLight.setAll(0x000000)
+})
